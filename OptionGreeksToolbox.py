@@ -31,7 +31,7 @@ class OptionGreeksToolbox:
         self.sigma = volatility
         self.r = interest_rate
 
-    def black_scholes_european_call(self, S=None, T=None, sigma=None):
+    def black_scholes_european_call(self, S=None, T=None, sigma=None, K=None, r=None):
         """
         Calculates the European call option price using the Black-Scholes formula.
 
@@ -39,6 +39,8 @@ class OptionGreeksToolbox:
             S (float, optional): Spot price of the underlying asset. Defaults to self.S.
             T (float, optional): Time to maturity of the option. Defaults to self.T.
             sigma (float, optional): Volatility of the underlying asset. Defaults to self.sigma.
+            K (float, optional): Strike price of the option. Defaults to self.K.
+            r (float, optional): Risk-free interest rate. Defaults to self.T.
 
         Returns:
             float: European call option price.
@@ -46,13 +48,15 @@ class OptionGreeksToolbox:
         S = S if S is not None else self.S
         T = T if T is not None else self.T
         sigma = sigma if sigma is not None else self.sigma
+        r = r if r is not None else self.r
+        K = K if K is not None else self.K
         
         d1 = (np.log(S / self.K) + (self.r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
         d2 = d1 - sigma * np.sqrt(T)
         call_price = S * norm.cdf(d1) - self.K * np.exp(-self.r * T) * norm.cdf(d2)
         return call_price
 
-    def black_scholes_european_put(self, S=None, T=None, sigma=None):
+    def black_scholes_european_put(self, S=None, T=None, sigma=None, K=None, r=None):
         """
         Calculates the European put option price using the Black-Scholes formula.
 
@@ -60,6 +64,8 @@ class OptionGreeksToolbox:
             S (float, optional): Spot price of the underlying asset. Defaults to self.S.
             T (float, optional): Time to maturity of the option. Defaults to self.T.
             sigma (float, optional): Volatility of the underlying asset. Defaults to self.sigma.
+            K (float, optional): Strike price of the option. Defaults to self.K.
+            r (float, optional): Risk-free interest rate. Defaults to self.T.
 
         Returns:
             float: European put option price.
@@ -67,6 +73,8 @@ class OptionGreeksToolbox:
         S = S if S is not None else self.S
         T = T if T is not None else self.T
         sigma = sigma if sigma is not None else self.sigma
+        r = r if r is not None else self.r
+        K = K if K is not None else self.K
         
         d1 = (np.log(S / self.K) + (self.r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
         d2 = d1 - sigma * np.sqrt(T)
