@@ -1,5 +1,3 @@
-```python
-
 import numpy as np
 from scipy.stats import norm
 from scipy.optimize import newton
@@ -172,4 +170,4 @@ class OptionGreeksToolbox:
         vega = (self.black_scholes_european_call(sigma=self.sigma + epsilon) - 
                 self.black_scholes_european_call(sigma=self.sigma)) / epsilon
         return vega
-```
+
